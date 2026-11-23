@@ -57,7 +57,7 @@ export default function Profile({ user, role, ordersCount = 0, wishCount = 0, on
 
               <div className="d-flex flex-wrap gap-2 justify-content-between">
                 <div className="d-flex gap-2">
-                  <Link to="/dashboard" className="btn btn-outline-dark">
+                  <Link to={role === 'admin' ? '/admin-dashboard' : '/user-dashboard'} className="btn btn-outline-dark">
                     <i className="bi bi-speedometer2 me-1" /> Dashboard
                   </Link>
                   <Link to="/orders" className="btn btn-outline-primary">

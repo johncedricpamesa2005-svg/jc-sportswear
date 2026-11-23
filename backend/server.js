@@ -107,12 +107,6 @@ const { verifyFirebaseToken, requireAdmin } = createAuthMiddleware({
   isFirebaseReady: () => firebaseAdminReady
 });
 
-const OWNER_ADMIN_EMAILS = [
-  'admin@jcsportswear.com',
-  'mysteryprince123@gmail.com',
-  'johncedricpamesa2005@gmail.com'
-];
-
 // ==========================================
 // 1. HEALTH CHECK ENDPOINT (Render)
 // ==========================================
@@ -147,7 +141,7 @@ app.post(['/api/auth/google', '/api/firebase-login'], async (req, res, next) => 
     const name = decoded.name || email.split('@')[0] || 'Google User';
     const photoURL = decoded.picture || '';
 
-    let role = OWNER_ADMIN_EMAILS.includes(email) ? 'admin' : 'user';
+    let role = 'user';
 
     if (firestoreDb) {
       const userDocRef = firestoreDb.collection('users').doc(uid);
@@ -160,14 +154,15 @@ app.post(['/api/auth/google', '/api/firebase-login'], async (req, res, next) => 
           email,
           photoURL,
           provider: 'google',
-          role,
+          role: 'user',
           createdAt: FieldValue.serverTimestamp(),
           updatedAt: FieldValue.serverTimestamp(),
           lastLogin: FieldValue.serverTimestamp()
         });
+        role = 'user';
       } else {
         const existing = docSnap.data();
-        role = existing.role || role;
+        role = existing.role === 'admin' ? 'admin' : 'user';
         await userDocRef.update({
           name: name || existing.name,
           photoURL: photoURL || existing.photoURL || '',

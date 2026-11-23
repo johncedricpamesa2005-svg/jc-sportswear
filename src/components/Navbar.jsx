@@ -41,12 +41,6 @@ export default function Navbar({
         <div id="mainNavbar" className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-1">
             <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/" end>
-                Landing
-              </NavLink>
-            </li>
-
-            <li className="nav-item">
               <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/home">
                 Home
               </NavLink>
@@ -64,19 +58,26 @@ export default function Navbar({
               </NavLink>
             </li>
 
-            {user && (
-              <li className="nav-item">
-                <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/dashboard">
-                  Dashboard
-                </NavLink>
-              </li>
+            {/* Role-Specific Dashboard & Admin Inventory */}
+            {user && isAdmin && (
+              <>
+                <li className="nav-item">
+                  <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/admin-dashboard">
+                    Admin Dashboard
+                  </NavLink>
+                </li>
+                <li className="nav-item">
+                  <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/manage">
+                    <i className="bi bi-box-seam me-1 text-warning" /> Inventory
+                  </NavLink>
+                </li>
+              </>
             )}
 
-            {/* Admin-only Inventory CRUD Module */}
-            {isAdmin && (
+            {user && !isAdmin && (
               <li className="nav-item">
-                <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/manage">
-                  <i className="bi bi-box-seam me-1 text-warning" /> Inventory
+                <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/user-dashboard">
+                  Dashboard
                 </NavLink>
               </li>
             )}

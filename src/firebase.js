@@ -23,43 +23,40 @@ const app = initializeApp(firebaseConfig);
 
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
+// Always prompt the Google account chooser so the user can pick any account
+googleProvider.setCustomParameters({
+  prompt: 'select_account'
+});
 export const db = getFirestore(app);
 
-const OWNER_EMAILS = [
-  'admin@jcsportswear.com',
-  'mysteryprince123@gmail.com',
-  'johncedricpamesa2005@gmail.com'
-];
-
-// Pure user interaction: The owner manages/changes roles directly in Firestore!
+// Strictly follows the role stored in Firestore ('admin' or 'user').
+// New accounts default to 'user' until updated in Firestore.
 export async function syncUserWithFirestore(firebaseUser) {
+  const email = firebaseUser.email?.toLowerCase()?.trim() || "";
+  const fallbackName = firebaseUser.displayName || email.split('@')[0] || "User";
+
   try {
     const userRef = doc(db, "users", firebaseUser.uid);
     const snap = await getDoc(userRef);
-    const email = firebaseUser.email?.toLowerCase()?.trim() || "";
 
     let role = "user";
 
     if (!snap.exists()) {
-      // New user: default to 'user' unless known owner
-      role = OWNER_EMAILS.includes(email) ? "admin" : "user";
-
-      const newUserData = {
+      await setDoc(userRef, {
         uid: firebaseUser.uid,
-        name: firebaseUser.displayName || email.split('@')[0] || "User",
-        email: email,
+        name: fallbackName,
+        email,
         photoURL: firebaseUser.photoURL || "",
-        role: role,
+        role: "user",
         provider: "google",
         createdAt: serverTimestamp(),
         updatedAt: serverTimestamp(),
         lastLogin: serverTimestamp()
-      };
-      await setDoc(userRef, newUserData);
+      });
+      role = "user";
     } else {
-      // Existing user: preserve whatever role is stored in Firestore (owner changed it)
       const current = snap.data();
-      role = current.role || (OWNER_EMAILS.includes(email) ? "admin" : "user");
+      role = current.role === "admin" ? "admin" : "user";
 
       await updateDoc(userRef, {
         name: firebaseUser.displayName || current.name || "User",
@@ -73,40 +70,24 @@ export async function syncUserWithFirestore(firebaseUser) {
     return {
       id: firebaseUser.uid,
       uid: firebaseUser.uid,
-      name: firebaseUser.displayName || email.split('@')[0] || "User",
-      email: email,
+      name: fallbackName,
+      email,
       photo: firebaseUser.photoURL || "",
       photoURL: firebaseUser.photoURL || "",
-      role: role,
+      role,
       provider: "google"
     };
   } catch (error) {
     console.warn("Client Firestore sync warning:", error);
-    const email = firebaseUser.email?.toLowerCase()?.trim() || "";
     return {
       id: firebaseUser.uid,
       uid: firebaseUser.uid,
-      name: firebaseUser.displayName || email.split('@')[0] || "User",
-      email: email,
+      name: fallbackName,
+      email,
       photo: firebaseUser.photoURL || "",
       photoURL: firebaseUser.photoURL || "",
-      role: OWNER_EMAILS.includes(email) ? "admin" : "user",
+      role: "user",
       provider: "google"
     };
-  }
-}
-
-// Helper to switch or choose role in Firestore directly
-export async function setRoleInFirestore(uid, newRole) {
-  try {
-    const userRef = doc(db, "users", uid);
-    await updateDoc(userRef, {
-      role: newRole,
-      updatedAt: serverTimestamp()
-    });
-    return true;
-  } catch (err) {
-    console.warn("Direct Firestore role update warning:", err);
-    return false;
   }
 }

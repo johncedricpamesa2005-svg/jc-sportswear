@@ -1,11 +1,5 @@
 import { getAuth as getFirebaseAdminAuth } from 'firebase-admin/auth';
 
-const OWNER_ADMIN_EMAILS = [
-  'admin@jcsportswear.com',
-  'mysteryprince123@gmail.com',
-  'johncedricpamesa2005@gmail.com'
-];
-
 export function createAuthMiddleware({ getFirestoreDb, isFirebaseReady }) {
   const verifyFirebaseToken = async (req, res, next) => {
     try {
@@ -25,13 +19,13 @@ export function createAuthMiddleware({ getFirestoreDb, isFirebaseReady }) {
 
       const decoded = await getFirebaseAdminAuth().verifyIdToken(idToken);
       const email = decoded.email?.toLowerCase()?.trim() || '';
-      let role = OWNER_ADMIN_EMAILS.includes(email) ? 'admin' : 'user';
+      let role = 'user';
 
       const firestoreDb = getFirestoreDb();
       if (firestoreDb) {
         const userDoc = await firestoreDb.collection('users').doc(decoded.uid).get();
         if (userDoc.exists) {
-          role = userDoc.data().role || role;
+          role = userDoc.data().role === 'admin' ? 'admin' : 'user';
         }
       }
 

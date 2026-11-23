@@ -7,7 +7,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import Style from './style.jsx';
 import Navbar from './components/Navbar.jsx';
-import OfflineBanner from './components/OfflineBanner.jsx';
 import { ProtectedRoute, RoleRoute } from './components/ProtectedRoute.jsx';
 import CheckoutModal from './components/CheckoutModal.jsx';
 
@@ -77,7 +76,6 @@ function App() {
   const [hookMessage, setHookMessage] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [checkoutProduct, setCheckoutProduct] = useState(null);
-  const [apiOffline, setApiOffline] = useState(false);
   const [toast, setToast] = useState('');
 
   useEffect(() => { localStorage.setItem('jcWish', JSON.stringify(wish)); }, [wish]);
@@ -122,6 +120,17 @@ function App() {
       .catch(() => {});
   }, []);
 
+  useEffect(() => {
+    const onOffline = () => setToast('You are currently offline. Showing cached data.');
+    const onOnline = () => setToast('Back online!');
+    window.addEventListener('offline', onOffline);
+    window.addEventListener('online', onOnline);
+    return () => {
+      window.removeEventListener('offline', onOffline);
+      window.removeEventListener('online', onOnline);
+    };
+  }, []);
+
   const notify = msg => setToast(msg);
 
   const navigate = (nextPage, category = 'All') => {
@@ -141,14 +150,9 @@ function App() {
         const data = await res.json();
         if (Array.isArray(data) && data.length > 0) {
           setProducts(data);
-          setApiOffline(false);
         }
-      } else {
-        setApiOffline(true);
       }
-    } catch {
-      setApiOffline(true);
-    }
+    } catch {}
   };
 
   const fetchMyOrders = async () => {
@@ -344,7 +348,11 @@ function App() {
       setCheckoutProduct(pending);
     } else {
       notify(`Welcome, ${cleanAccount.name}!`);
-      routerNavigate(redirectTo === '/login' ? '/home' : redirectTo);
+      if (redirectTo === '/home' || redirectTo === '/login') {
+        routerNavigate(userRole === 'admin' ? '/admin-dashboard' : '/user-dashboard');
+      } else {
+        routerNavigate(redirectTo);
+      }
     }
   };
 
@@ -370,8 +378,6 @@ function App() {
         ordersCount={orders.length}
         onLogout={handleLogout}
       />
-
-      <OfflineBanner apiOffline={apiOffline} />
 
       <Routes>
         <Route
@@ -428,6 +434,24 @@ function App() {
           element={
             <ProtectedRoute user={user} authReady={authReady}>
               <Dashboard user={user} role={role} products={products} orders={orders} wish={wish} />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/admin-dashboard"
+          element={
+            <RoleRoute user={user} role={role} authReady={authReady} allowedRoles={['admin']}>
+              <Dashboard user={user} role="admin" products={products} orders={orders} wish={wish} />
+            </RoleRoute>
+          }
+        />
+
+        <Route
+          path="/user-dashboard"
+          element={
+            <ProtectedRoute user={user} authReady={authReady}>
+              <Dashboard user={user} role="user" products={products} orders={orders} wish={wish} />
             </ProtectedRoute>
           }
         />
