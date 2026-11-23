@@ -1,0 +1,182 @@
+[
+  {
+    "id": 1,
+    "name": "Basketball Jersey",
+    "category": "Basketball",
+    "price": 1299,
+    "oldPrice": 1599,
+    "rating": 4.9,
+    "image": "bballshirt.jpg",
+    "badge": "BEST SELLER",
+    "description": "Lightweight basketball jersey designed for comfort and movement.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 2,
+    "name": "Basketball Shorts",
+    "category": "Basketball",
+    "price": 899,
+    "oldPrice": 1099,
+    "rating": 4.8,
+    "image": "bballshorts.webp",
+    "badge": "SALE",
+    "description": "Breathable basketball shorts perfect for training and competition.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 3,
+    "name": "Football Performance Jersey",
+    "category": "Football",
+    "price": 1499,
+    "oldPrice": 1799,
+    "rating": 4.9,
+    "image": "fballjer.webp",
+    "badge": "POPULAR",
+    "description": "Performance football jersey made for intense matches.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 4,
+    "name": "Football Training Shorts",
+    "category": "Football",
+    "price": 799,
+    "oldPrice": 999,
+    "rating": 4.7,
+    "image": "fballshrt.webp",
+    "badge": "SALE",
+    "description": "Comfortable training shorts with flexible fabric.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 5,
+    "name": "Volleyball Jersey Set",
+    "category": "Volleyball",
+    "price": 1199,
+    "oldPrice": 1399,
+    "rating": 4.8,
+    "image": "volleyballset.jpg",
+    "badge": "NEW",
+    "description": "Modern volleyball jersey for teams and recreational players.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 6,
+    "name": "Volleyball Performance Ball",
+    "category": "Volleyball",
+    "price": 749,
+    "oldPrice": 899,
+    "rating": 4.6,
+    "image": "vballper.jpg",
+    "badge": "",
+    "description": "Flexible and breathable volleyball ball.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 7,
+    "name": "Running Performance Shirt",
+    "category": "Running",
+    "price": 999,
+    "oldPrice": 1199,
+    "rating": 4.9,
+    "image": "running.webp",
+    "badge": "BEST SELLER",
+    "description": "Lightweight running shirt with breathable performance fabric.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 8,
+    "name": "Runner Training Shorts",
+    "category": "Running",
+    "price": 699,
+    "oldPrice": 849,
+    "rating": 4.7,
+    "image": "runningshorts.webp",
+    "badge": "SALE",
+    "description": "Comfortable running shorts built for daily training.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 9,
+    "name": "Gym Compression Shirt",
+    "category": "Gym",
+    "price": 1099,
+    "oldPrice": 1299,
+    "rating": 4.8,
+    "image": "gymshirt.webp",
+    "badge": "POPULAR",
+    "description": "Compression training shirt designed for workouts.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 10,
+    "name": "Wrist supporter",
+    "category": "Gym",
+    "price": 1299,
+    "oldPrice": 1499,
+    "rating": 4.8,
+    "image": "wristsupp.jpg",
+    "badge": "",
+    "description": "Versatile wrist support for training and everyday use.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 11,
+    "name": "Tennis Performance Polo",
+    "category": "Tennis",
+    "price": 1399,
+    "oldPrice": 1599,
+    "rating": 4.9,
+    "image": "tennispolo.jpg",
+    "badge": "NEW",
+    "description": "Classic tennis polo with lightweight performance fabric.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  },
+  {
+    "id": 12,
+    "name": "Tennis Performance Racket",
+    "category": "Tennis",
+    "price": 899,
+    "oldPrice": 1099,
+    "rating": 4.7,
+    "image": "racket.webp",
+    "badge": "SALE",
+    "description": "Reliable racket for training and competition.",
+    "createdAt": {
+      "_seconds": 1792539298,
+      "_nanoseconds": 118000000
+    }
+  }
+]

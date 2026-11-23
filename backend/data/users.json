@@ -1,0 +1,30 @@
+{
+  "users": [
+    {
+      "id": "321bf5b2-6302-48f5-bf99-d8383569e3bd",
+      "name": "John cedric Pamesa",
+      "email": "johncedricpamesa2005@gmail.com",
+      "provider": "google",
+      "firebaseUid": "7XFSR8m0irbCtlW7I43nPjuoLJD2",
+      "photoURL": "https://lh3.googleusercontent.com/a/ACg8ocJZM-7ETZy9Me9gFDDhx18VvcLeIe2i6hjHNaWKK9lazkxKaV9w=s96-c"
+    },
+    {
+      "id": "admin-jc-sportswear-uid",
+      "uid": "admin-jc-sportswear-uid",
+      "name": "JC Admin",
+      "email": "admin@jcsportswear.com",
+      "passwordHash": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+      "role": "admin",
+      "provider": "password"
+    },
+    {
+      "id": "02dc0483-9ad3-4adc-b43e-0bd006c12055",
+      "uid": "02dc0483-9ad3-4adc-b43e-0bd006c12055",
+      "name": "Maria Santos",
+      "email": "maria.santos@gmail.com",
+      "passwordHash": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f",
+      "provider": "password",
+      "role": "user"
+    }
+  ]
+}

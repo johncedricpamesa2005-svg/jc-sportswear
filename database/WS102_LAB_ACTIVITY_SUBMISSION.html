@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WS102 Laboratory Activity - Database Implementation (JC Sportswear)</title>
+<style>
+  body {
+    font-family: Calibri, Arial, sans-serif;
+    line-height: 1.5;
+    color: #222;
+    background: #f8fafc;
+    padding: 30px;
+    margin: 0;
+  }
+  .doc-container {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #ffffff;
+    padding: 50px 60px;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  }
+  .doc-header {
+    border-bottom: 2px solid #111827;
+    padding-bottom: 15px;
+    margin-bottom: 25px;
+  }
+  .doc-header h1 {
+    font-size: 22px;
+    text-transform: uppercase;
+    margin: 0 0 5px 0;
+    color: #111827;
+  }
+  .doc-header h2 {
+    font-size: 16px;
+    font-weight: normal;
+    color: #4b5563;
+    margin: 0 0 15px 0;
+  }
+  .meta-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    font-size: 14px;
+  }
+  .meta-item strong {
+    color: #111827;
+  }
+  h3 {
+    font-size: 16px;
+    color: #111827;
+    margin-top: 25px;
+    margin-bottom: 10px;
+    border-left: 4px solid #ff4d30;
+    padding-left: 10px;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 20px 0;
+    font-size: 13.5px;
+  }
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 8px 12px;
+    text-align: left;
+  }
+  th {
+    background-color: #f1f5f9;
+    color: #1e293b;
+    font-weight: bold;
+  }
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px 15px;
+    border-radius: 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 13px;
+    overflow-x: auto;
+  }
+  .screenshot-box {
+    border: 2px dashed #94a3b8;
+    background: #f8fafc;
+    border-radius: 6px;
+    padding: 20px;
+    text-align: center;
+    color: #64748b;
+    font-size: 13px;
+    margin: 12px 0 20px 0;
+  }
+  .screenshot-box b {
+    color: #1e293b;
+    display: block;
+    margin-bottom: 4px;
+  }
+  @media print {
+    body { background: #fff; padding: 0; }
+    .doc-container { box-shadow: none; padding: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-container">
+  <div class="doc-header">
+    <h1>Laboratory Activity: Database Implementation</h1>
+    <h2>Based on Proposed System (JC Sportswear PWA) &bull; WS102 Web Systems</h2>
+    <div class="meta-grid">
+      <div class="meta-item"><strong>Student Name:</strong> John Cedric Pamesa</div>
+      <div class="meta-item"><strong>Date:</strong> 10/24/2026</div>
+      <div class="meta-item"><strong>Section / Year:</strong> BSIT 3A</div>
+      <div class="meta-item"><strong>Course:</strong> WS102 - Web Systems and Technologies</div>
+    </div>
+  </div>
+
+  <h3>Task 1 &mdash; Identify Your System's Data Requirements</h3>
+  <table>
+    <tr>
+      <th style="width: 30%;">Requirement</th>
+      <th>Your Answer</th>
+    </tr>
+    <tr>
+      <td><strong>System Name</strong></td>
+      <td>JC Sportswear E-Commerce Athletic Apparel &amp; Equipment Management System (PWA)</td>
+    </tr>
+    <tr>
+      <td><strong>Purpose of the System</strong></td>
+      <td>To provide a progressive web application (PWA) e-commerce platform where athletes and sports enthusiasts can browse, filter, and order high-performance sportswear, jerseys, and athletic accessories, and store administrators can manage catalog inventory, stock levels, and product pricing.</td>
+    </tr>
+    <tr>
+      <td><strong>Main Information to be Stored</strong></td>
+      <td>Product catalog information (product ID, product name, sport category, unit price, available stock quantity, and product description).</td>
+    </tr>
+    <tr>
+      <td><strong>Proposed Database Name</strong></td>
+      <td><code>jc_sportswear_db</code></td>
+    </tr>
+    <tr>
+      <td><strong>Main Table Name</strong></td>
+      <td><code>products</code></td>
+    </tr>
+    <tr>
+      <td><strong>At Least Five Columns Needed</strong></td>
+      <td><code>product_id</code>, <code>product_name</code>, <code>category</code>, <code>price</code>, <code>stock_quantity</code>, <code>description</code></td>
+    </tr>
+  </table>
+
+  <h3>Task 2 &mdash; Create Your Database in phpMyAdmin</h3>
+  <pre>CREATE DATABASE IF NOT EXISTS jc_sportswear_db;</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 1 &mdash; Database Creation Query]</b>
+    Paste screenshot of phpMyAdmin SQL tab executing <code>CREATE DATABASE IF NOT EXISTS jc_sportswear_db;</code> with green alert box.
+  </div>
+  <div class="screenshot-box">
+    <b>[Screenshot 2 &mdash; Database Navigation Panel]</b>
+    Paste screenshot of phpMyAdmin left sidebar displaying <code>jc_sportswear_db</code>.
+  </div>
+
+  <h3>Task 3 &mdash; Design and Create Your Main Table</h3>
+  <pre>USE jc_sportswear_db;
+
+CREATE TABLE products (
+    product_id INT AUTO_INCREMENT PRIMARY KEY,
+    product_name VARCHAR(100) NOT NULL,
+    category VARCHAR(50) NOT NULL,
+    price DECIMAL(10, 2) NOT NULL,
+    stock_quantity INT NOT NULL DEFAULT 0,
+    description TEXT
+);</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 3 &mdash; CREATE TABLE Query]</b>
+    Paste screenshot of phpMyAdmin SQL tab showing table creation query execution.
+  </div>
+  <div class="screenshot-box">
+    <b>[Screenshot 4 &mdash; Table Structure in phpMyAdmin]</b>
+    Paste screenshot of the "Structure" tab showing all columns, types (INT, VARCHAR, DECIMAL, TEXT), and primary key.
+  </div>
+
+  <h3>Task 4 &mdash; INSERT: Add Sample Records</h3>
+  <pre>INSERT INTO products (product_name, category, price, stock_quantity, description)
+VALUES
+    ('Basketball Jersey', 'Basketball', 1299.00, 25, 'Lightweight basketball jersey designed for comfort and movement.'),
+    ('Basketball Shorts', 'Basketball', 899.00, 30, 'Breathable basketball shorts perfect for training and competition.'),
+    ('Football Performance Jersey', 'Football', 1499.00, 20, 'Performance football jersey made for intense tournament matches.'),
+    ('Football Training Shorts', 'Football', 799.00, 18, 'Comfortable training shorts with flexible athletic fabric.'),
+    ('Volleyball Jersey Set', 'Volleyball', 1199.00, 15, 'Modern volleyball jersey set for teams and recreational players.'),
+    ('Volleyball Performance Ball', 'Volleyball', 749.00, 12, 'Flexible and tournament-grade synthetic leather volleyball.'),
+    ('Running Performance Shirt', 'Running', 999.00, 22, 'Lightweight running shirt with breathable performance fabric.'),
+    ('Tennis Performance Racket', 'Tennis', 899.00, 10, 'Reliable graphite tennis racket for training and competition.');</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 5 &mdash; INSERT Query Execution]</b>
+    Paste screenshot of phpMyAdmin SQL tab executing INSERT with green alert "8 rows inserted".
+  </div>
+  <div class="screenshot-box">
+    <b>[Screenshot 6 &mdash; Browse Table Records]</b>
+    Paste screenshot of phpMyAdmin "Browse" tab displaying all 8 inserted sportswear products.
+  </div>
+
+  <h3>Task 5 &mdash; SELECT: Retrieve and Display Records</h3>
+  <p><strong>Query 1: Display All Records</strong></p>
+  <pre>SELECT * FROM products;</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 7 &mdash; SELECT All Products Result]</b>
+    Paste screenshot of the complete table result showing all 8 rows.
+  </div>
+
+  <p><strong>Query 2: Display Selected Columns</strong></p>
+  <pre>SELECT product_id, product_name, category, price, stock_quantity 
+FROM products;</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 8 &mdash; Selected Columns Result]</b>
+    Paste screenshot showing only the 5 selected columns.
+  </div>
+
+  <p><strong>Query 3: Filter by Condition (WHERE category = 'Basketball')</strong></p>
+  <pre>SELECT * 
+FROM products 
+WHERE category = 'Basketball';</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 9 &mdash; Filtered Query Result]</b>
+    Paste screenshot showing basketball products (Jersey &amp; Shorts).
+  </div>
+
+  <h3>Task 6 &mdash; UPDATE: Modify Existing Records</h3>
+  <p><strong>Update Operation 1: Price Adjustment</strong></p>
+  <pre>UPDATE products 
+SET price = 1199.00 
+WHERE product_id = 1;</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 10 &mdash; Price UPDATE Query &amp; 1 Row Affected]</b>
+  </div>
+  <div class="screenshot-box">
+    <b>[Screenshot 11 &mdash; Verification of Updated Price (Basketball Jersey = 1199.00)]</b>
+  </div>
+
+  <p><strong>Update Operation 2: Stock Replenishment</strong></p>
+  <pre>UPDATE products 
+SET stock_quantity = 40 
+WHERE product_id = 2;</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 12 &mdash; Stock UPDATE Query &amp; 1 Row Affected]</b>
+  </div>
+  <div class="screenshot-box">
+    <b>[Screenshot 13 &mdash; Verification of Updated Stock (Basketball Shorts = 40)]</b>
+  </div>
+
+  <h3>Task 7 &mdash; DELETE: Remove a Selected Record</h3>
+  <p><strong>Step 1: Identify Record Before Deletion</strong></p>
+  <pre>SELECT * FROM products WHERE product_id = 8;</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 14 &mdash; SELECT Query Showing Product ID 8 (Tennis Racket)]</b>
+  </div>
+
+  <p><strong>Step 2: Delete Discontinued Record</strong></p>
+  <pre>DELETE FROM products 
+WHERE product_id = 8;</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 15 &mdash; DELETE Query Execution &amp; 1 Row Affected]</b>
+  </div>
+
+  <p><strong>Step 3: Verification of Remaining Products</strong></p>
+  <pre>SELECT * FROM products;</pre>
+  <div class="screenshot-box">
+    <b>[Screenshot 16 &mdash; Browse Table Showing Remaining 7 Products]</b>
+    Verification that product_id = 8 is removed and products 1 to 7 remain.
+  </div>
+</div>
+
+</body>
+</html>
