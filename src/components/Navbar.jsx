@@ -9,7 +9,7 @@ export default function Navbar({
   ordersCount = 0,
   onLogout
 }) {
-  const isAdmin = role === 'admin';
+  const isAdmin = user && role === 'admin';
 
   return (
     <nav className="navbar navbar-expand-lg navbar-dark fixed-top custom-navbar">
@@ -17,7 +17,7 @@ export default function Navbar({
         {/* Brand */}
         <Link
           className="navbar-brand d-flex align-items-center gap-2 text-decoration-none"
-          to={user ? '/home' : '/'}
+          to={isAdmin ? '/admin-dashboard' : user ? '/home' : '/'}
           title="JC Sportswear"
         >
           <img src={A + 'logo.png'} alt="JC Sportswear" className="brand-logo" />
@@ -40,26 +40,8 @@ export default function Navbar({
         {/* Navbar Links */}
         <div id="mainNavbar" className="collapse navbar-collapse">
           <ul className="navbar-nav ms-auto align-items-lg-center gap-lg-1">
-            <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/home">
-                Home
-              </NavLink>
-            </li>
-
-            <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/shop">
-                Shop
-              </NavLink>
-            </li>
-
-            <li className="nav-item">
-              <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/about">
-                About
-              </NavLink>
-            </li>
-
-            {/* Role-Specific Dashboard & Admin Inventory */}
-            {user && isAdmin && (
+            {/* Admin Navbar: Only Admin Dashboard and Inventory */}
+            {isAdmin ? (
               <>
                 <li className="nav-item">
                   <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/admin-dashboard">
@@ -72,35 +54,53 @@ export default function Navbar({
                   </NavLink>
                 </li>
               </>
-            )}
-
-            {user && !isAdmin && (
-              <li className="nav-item">
-                <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/user-dashboard">
-                  Dashboard
-                </NavLink>
-              </li>
-            )}
-
-            {user && (
+            ) : (
               <>
                 <li className="nav-item">
-                  <NavLink className={({ isActive }) => `nav-link position-relative ${isActive ? 'active fw-bold' : ''}`} to="/wishlist">
-                    Wishlist
-                    {wishCount > 0 && (
-                      <span className="badge bg-danger ms-1 rounded-pill">{wishCount}</span>
-                    )}
+                  <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/home">
+                    Home
                   </NavLink>
                 </li>
 
                 <li className="nav-item">
-                  <NavLink className={({ isActive }) => `nav-link position-relative ${isActive ? 'active fw-bold' : ''}`} to="/orders">
-                    Orders
-                    {ordersCount > 0 && (
-                      <span className="badge bg-primary ms-1 rounded-pill">{ordersCount}</span>
-                    )}
+                  <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/shop">
+                    Shop
                   </NavLink>
                 </li>
+
+                <li className="nav-item">
+                  <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/about">
+                    About
+                  </NavLink>
+                </li>
+
+                {user && (
+                  <>
+                    <li className="nav-item">
+                      <NavLink className={({ isActive }) => `nav-link ${isActive ? 'active fw-bold' : ''}`} to="/user-dashboard">
+                        Dashboard
+                      </NavLink>
+                    </li>
+
+                    <li className="nav-item">
+                      <NavLink className={({ isActive }) => `nav-link position-relative ${isActive ? 'active fw-bold' : ''}`} to="/wishlist">
+                        Wishlist
+                        {wishCount > 0 && (
+                          <span className="badge bg-danger ms-1 rounded-pill">{wishCount}</span>
+                        )}
+                      </NavLink>
+                    </li>
+
+                    <li className="nav-item">
+                      <NavLink className={({ isActive }) => `nav-link position-relative ${isActive ? 'active fw-bold' : ''}`} to="/orders">
+                        Orders
+                        {ordersCount > 0 && (
+                          <span className="badge bg-primary ms-1 rounded-pill">{ordersCount}</span>
+                        )}
+                      </NavLink>
+                    </li>
+                  </>
+                )}
               </>
             )}
 
